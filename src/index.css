@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  font-family: "Plus Jakarta Sans", serif;
+  background-color: #F6F7F9;
+}
+.card-1 {
+
+  
+  background: url('/src/assets/images/wavebg.png') no-repeat center center;
+}
