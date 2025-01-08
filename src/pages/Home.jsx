@@ -4,12 +4,43 @@ import car2 from "../assets/images/car2.png";
 import mark from "../assets/images/mark.png";
 import { CarDetails } from "../utils/CarsDetails";
 import { useState } from "react";
+import MiniDropDown from "../components/MiniDropDown";
+
 const Home = () => {
   const [addedtoFavourite, setAddedToFavourite] = useState(false);
   const handleAddToFavourite = (index) => {
     setAddedToFavourite(!addedtoFavourite);
+  };
+  const [option, setOption] = useState("Select city ");
+  const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
+  const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
+  const toggleLocationDropdown = () => {
+    setIsLocationDropdownOpen((prev) => !prev);
 
-  }
+    if (isDateDropdownOpen) setIsDateDropdownOpen(false);
+  };
+
+  const toggleDateDropdown = () => {
+    setIsDateDropdownOpen((prev) => !prev);
+
+    if (isLocationDropdownOpen) setIsLocationDropdownOpen(false);
+  };
+  const locations = [
+    {
+      name: "Lagos",
+    },
+    {
+      name: "Imo",
+    },
+    {
+      name: "Abuja",
+    },
+  ];
+  const dates = [
+    { date: "2025-01-01" },
+    { date: "2025-01-02" },
+    { date: "2025-01-03" },
+  ];
   return (
     <div className="w-full">
       <header className="w-full p-6 bg-white flex justify-between item-center">
@@ -89,22 +120,42 @@ const Home = () => {
             <div className="flex gap-5 ">
               <div className="py-3">
                 <div className="font-bold ">Location</div>
-                <div className="flex items-center  gap-1 md:gap-2 cursor-pointer text-gray-400 font-semibold px  -4">
-                  <p className="hidden md:block">select yout city</p>
+                <div
+                  onClick={toggleDateDropdown}
+                  className="flex items-center  gap-1 md:gap-2 cursor-pointer text-gray-400 font-semibold px  -4"
+                >
+                  <p className="hidden md:block">{option}</p>
                   <p className="block md:hidden font-mono md:font-normal text-sm md:text-lg">
                     Lagos
                   </p>
                   <i class="bi bi-chevron-compact-down"></i>
                 </div>
+                <div>
+                  <MiniDropDown
+                    isDropdownOpen={isDateDropdownOpen}
+                    data={locations}
+                    type="location"
+                    setOption2={setOption}
+                    
+                  />
+                </div>
               </div>
               <div className="w-[2px] bg-gray-200 h-16"></div>
               <div className="py-3">
                 <div className="font-bold ">Date </div>
-                <div className="flex items-center  gap-1 md:gap-2 cursor-pointer text-gray-400 font-semibold px  -4">
-                  <p className="hidden md:block">select yout city</p>
+                <div
+                  onClick={toggleLocationDropdown}
+                  className="flex items-center  gap-1 md:gap-2 cursor-pointer text-gray-400 font-semibold px  -4"
+                >
+                  <p className="hidden md:block">select your city</p>
                   <p className="block md:hidden text-sm md:text-lg">Lagos</p>
                   <i class="bi bi-chevron-compact-down"></i>
                 </div>
+                <MiniDropDown
+                  isDropdownOpen={isLocationDropdownOpen}
+                  data={dates}
+                  type="date"
+                />
               </div>
               <div className="w-[2px] bg-gray-200 h-16"></div>
               <div className="py-3">
@@ -174,7 +225,14 @@ const Home = () => {
                       {car.category}
                     </p>
                   </div>
-                  <i className={`bi bi-heart cursor-pointer ${addedtoFavourite ? 'bi bi-heart-fill cursor-pointer text-red-600' : 'bi bi-heart cursor-pointer'}`} onClick={handleAddToFavourite}></i>
+                  <i
+                    className={`bi bi-heart cursor-pointer ${
+                      addedtoFavourite
+                        ? "bi bi-heart-fill cursor-pointer text-red-600"
+                        : "bi bi-heart cursor-pointer"
+                    }`}
+                    onClick={handleAddToFavourite}
+                  ></i>
                 </div>
                 <div className="mt-10 ">
                   <img src={car.img} alt="" className=" h-20 m-auto" />
@@ -195,10 +253,15 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="flex items-center justify-between mt-5">
-                   <div>
-                    <h3 className="font-bold text-lg">${car.price}/<span className="font-normal text-gray-400"> day</span></h3>
-                   </div>
-                   <button className="px-4 py-2 hover:opacity-75 transition-opacity bg-primary-500 text-white rounded-lg ">Rent Now</button>
+                  <div>
+                    <h3 className="font-bold text-lg">
+                      ${car.price}/
+                      <span className="font-normal text-gray-400"> day</span>
+                    </h3>
+                  </div>
+                  <button className="px-4 py-2 hover:opacity-75 transition-opacity bg-primary-500 text-white rounded-lg ">
+                    Rent Now
+                  </button>
                 </div>
               </div>
             ))}
