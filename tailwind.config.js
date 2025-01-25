@@ -9,7 +9,8 @@ export default {
       colors: {
         'primary-500': '#3563E9',
         'gray-400': '#596780',
-        'sky-500': '#54A6FF'
+        'sky-500': '#54A6FF',
+        'secondary-500': '#90A3BF'
       }
     },
   },

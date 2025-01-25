@@ -12,8 +12,11 @@ const Home = () => {
     setAddedToFavourite(!addedtoFavourite);
   };
   const [option, setOption] = useState("Select city ");
+  const [option2, setOption2] = useState("Select date ");
+  const [option3, setOption3] = useState("Select time ");
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
   const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
+  const [isTimeDropdownOpen, setIsTimeDropdownOpen] = useState(false);
   const toggleLocationDropdown = () => {
     setIsLocationDropdownOpen((prev) => !prev);
 
@@ -22,6 +25,11 @@ const Home = () => {
 
   const toggleDateDropdown = () => {
     setIsDateDropdownOpen((prev) => !prev);
+
+    if (isLocationDropdownOpen) setIsLocationDropdownOpen(false);
+  };
+  const toggleTimeDropdown = () => {
+    setIsTimeDropdownOpen((prev) => !prev);
 
     if (isLocationDropdownOpen) setIsLocationDropdownOpen(false);
   };
@@ -40,6 +48,17 @@ const Home = () => {
     { date: "2025-01-01" },
     { date: "2025-01-02" },
     { date: "2025-01-03" },
+  ];
+  const timeData = [
+    { time: "09:00 AM", value: "09:00" },
+    { time: "10:00 AM", value: "10:00" },
+    { time: "11:00 AM", value: "11:00" },
+    { time: "12:00 PM", value: "12:00" },
+    { time: "01:00 PM", value: "13:00" },
+    { time: "02:00 PM", value: "14:00" },
+    { time: "03:00 PM", value: "15:00" },
+    { time: "04:00 PM", value: "16:00" },
+    { time: "05:00 PM", value: "17:00" },
   ];
   return (
     <div className="w-full">
@@ -124,9 +143,9 @@ const Home = () => {
                   onClick={toggleDateDropdown}
                   className="flex items-center  gap-1 md:gap-2 cursor-pointer text-gray-400 font-semibold px  -4"
                 >
-                  <p className="hidden md:block">{option}</p>
+                  <p className="hidden md:block"></p>
                   <p className="block md:hidden font-mono md:font-normal text-sm md:text-lg">
-                    Lagos
+                    {option}
                   </p>
                   <i class="bi bi-chevron-compact-down"></i>
                 </div>
@@ -135,8 +154,8 @@ const Home = () => {
                     isDropdownOpen={isDateDropdownOpen}
                     data={locations}
                     type="location"
-                    setOption2={setOption}
-                    
+                    setOption1={setOption}
+                    setIsDropdownOpen={setIsDateDropdownOpen}
                   />
                 </div>
               </div>
@@ -147,26 +166,43 @@ const Home = () => {
                   onClick={toggleLocationDropdown}
                   className="flex items-center  gap-1 md:gap-2 cursor-pointer text-gray-400 font-semibold px  -4"
                 >
-                  <p className="hidden md:block">select your city</p>
-                  <p className="block md:hidden text-sm md:text-lg">Lagos</p>
+                  <p className="hidden md:block">{option2}</p>
+                  <p className="block md:hidden text-sm md:text-lg">
+                    {option2}
+                  </p>
                   <i class="bi bi-chevron-compact-down"></i>
                 </div>
                 <MiniDropDown
                   isDropdownOpen={isLocationDropdownOpen}
                   data={dates}
                   type="date"
+                  setOption1={setOption2}
+                  setIsDropdownOpen={setIsLocationDropdownOpen}
                 />
               </div>
               <div className="w-[2px] bg-gray-200 h-16"></div>
               <div className="py-3">
                 <div className="font-bold ">Time </div>
-                <div className="flex items-center gap-1 md:gap-2 cursor-pointer text-gray-400 font-semibold px  -4">
-                  <p className="hidden md:block text-sm md:text-lg">
-                    select yout city
+                <div
+                  onClick={toggleTimeDropdown}
+                  className="flex items-center gap-1 md:gap-2 cursor-pointer text-gray-400 font-semibold px  -4"
+                >
+                  <p className="hidden md:block text-sm md:text-normal">
+                    {option3}
                   </p>
-                  <p className="block md:hidden text-sm md:text-lg">Lagos</p>
+                  <p className="block md:hidden text-sm md:text-lg">
+                    {" "}
+                    {option3}{" "}
+                  </p>
                   <i class="bi bi-chevron-compact-down"></i>
                 </div>
+                <MiniDropDown
+                  isDropdownOpen={isTimeDropdownOpen}
+                  data={timeData}
+                  type="time"
+                  setOption1={setOption3}
+                  setIsDropdownOpen={setIsTimeDropdownOpen}
+                />
               </div>
             </div>
           </div>
