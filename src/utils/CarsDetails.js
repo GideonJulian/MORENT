@@ -61,7 +61,7 @@ const CarDetails = [
   },
   {
     carName: "All New Terios",
-    id: 6,
+    id: 7,
     category: "SUV",
     price: "80.00",
     img: car7,
@@ -69,7 +69,7 @@ const CarDetails = [
   },
   {
     carName: "All New Terios",
-    id: 6,
+    id: 8,
     category: "SUV",
     price: "80.00",
     img: car8,
@@ -77,7 +77,7 @@ const CarDetails = [
   },
   {
     carName: "All New Terios",
-    id: 6,
+    id: 9,
     category: "SUV",
     price: "80.00",
     img: car9,
@@ -85,7 +85,7 @@ const CarDetails = [
   },
   {
     carName: "All New Terios",
-    id: 6,
+    id: 10,
     category: "SUV",
     price: "80.00",
     img: car10,

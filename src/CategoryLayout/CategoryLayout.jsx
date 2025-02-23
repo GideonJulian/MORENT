@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 import { useState } from "react";
 import Footer from "../components/Footer";
 const CategoryLayout = () => {
+  const [searchQuery, setSearchQuery] = useState('')
   const [isopen, setIsOpen] = useState(false);
   const openSidebar = () => {
     setIsOpen(true);
@@ -13,6 +14,7 @@ const CategoryLayout = () => {
 const CloseSidebar  = () => {
   setIsOpen(false);
  }
+ 
   return (
     <div>
       <header className="w-full p-6 bg-white  fixed z-10 top-0">
@@ -39,7 +41,8 @@ const CloseSidebar  = () => {
                   type="text"
                   name=""
                   id=""
-                  placeholder="Search something here"
+           
+                  placeholder="Search something hereeee"
                   className="px-4 py-3  rounded-md border w-full pl-10 pr-10"
                 />
                 <div className="px-2 py-1 ml-5 border rounded-md text-center">
@@ -53,6 +56,8 @@ const CloseSidebar  = () => {
                 type="text"
                 className="pl-10 h-10 px-4 py-2 rounded-full w-[200px] md:w-[450px] border "
                 placeholder="Search something here "
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
               />
               <i class="bi bi-sliders absolute top-2 right-5"></i>
             </div>
@@ -76,7 +81,7 @@ const CloseSidebar  = () => {
       <div className="flex">
         <Sidebar IsOpen={isopen} onClose={CloseSidebar}/>
         <div className="p-4 ml-1 md:ml-[19rem] mt-60 md:mt-20 w-full">
-          <Outlet />
+          <Outlet context={{searchQuery}}/>
         </div>
       </div>
     </div>

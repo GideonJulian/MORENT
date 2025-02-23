@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import CategoryLayout from './CategoryLayout/CategoryLayout';
 import Category from './pages/Category';
 
+
 const App = () => {
   const route  = createBrowserRouter([
       {
@@ -24,7 +25,8 @@ const App = () => {
         {
           index: true,
           element: <Category />
-        }
+        },
+       
         ]
       }
   ])
