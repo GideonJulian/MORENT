@@ -41,7 +41,8 @@ const CloseSidebar  = () => {
                   type="text"
                   name=""
                   id=""
-           
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
                   placeholder="Search something hereeee"
                   className="px-4 py-3  rounded-md border w-full pl-10 pr-10"
                 />
