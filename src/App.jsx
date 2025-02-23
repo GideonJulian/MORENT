@@ -19,7 +19,7 @@ const App = () => {
         ]
       },
       {
-        path: 'category',
+        path: '/category',
         element: <CategoryLayout />,
         children: [
         {
