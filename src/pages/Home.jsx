@@ -5,6 +5,7 @@ import mark from "../assets/images/mark.png";
 import { CarDetails } from "../utils/CarsDetails";
 import { useState } from "react";
 import MiniDropDown from "../components/MiniDropDown";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [addedtoFavourite, setAddedToFavourite] = useState(false);
@@ -22,6 +23,15 @@ const Home = () => {
     setIsLocationDropdownOpen((prev) => !prev);
 
     if (isDateDropdownOpen) setIsDateDropdownOpen(false);
+  };
+  const [searchQuery, setSearchQuery] = useState("");
+  const [isopen, setIsOpen] = useState(false);
+  const openSidebar = () => {
+    setIsOpen(true);
+    console.log("clicked ");
+  };
+  const CloseSidebar = () => {
+    setIsOpen(false);
   };
 
   const toggleDateDropdown = () => {
@@ -66,41 +76,76 @@ const Home = () => {
       item.carName.toLowerCase().includes(homeSearchQuery) ||
       item.category.toLowerCase().includes(homeSearchQuery)
   );
+  const navigate = useNavigate()
+  const handleNavigate = () => {
+
+    navigate("/category")
+  }
   return (
     <div className="w-full">
-      <header className="w-full p-6 bg-white flex justify-between item-center">
-        <div className="flex gap-20 flex-col md:flex-row">
-          <div>
-            <h3 className="font-bold text-2xl text-primary-500"> MORENT</h3>
-          </div>
-          <div className="relative ml-3 hidden md:block">
-            <i class="bi bi-search  absolute top-2 left-4"></i>
-            <input
-              type="text"
-              value={homeSearchQuery}
-              onChange={(e) => setHomeSearchQuery(e.target.value.toLowerCase())}
-              className="pl-10 h-10 px-4 py-2 rounded-efull w-[200px] md:w-[450px] border "
-              placeholder="Search something here "
-            />
-            <i class="bi bi-sliders absolute top-2 right-5"></i>
-          </div>
-        </div>
-        <div className="flex items-center gap-3 ">
-          <div className="hidden items-center justify-center border rounded-full h-10 w-10  md:flex">
-            <i className="bi bi-heart-fill text-gray-400"></i>
-          </div>
-          <div className="hidden items-center justify-center border rounded-full h-10 w-10  md:flex">
-            <i class="bi bi-bell-fill text-gray-400"></i>
-          </div>
-          <div className=" items-center justify-center border rounded-full h-10 w-10 hidden md:flex">
-            <i class="bi bi-gear-fill text-gray-400"></i>
-          </div>
+      <header className="w-full p-6 bg-white md:static fixed st z-10 top-0">
+        <div className="flex justify-end items-center  md:hidden ">
+          {/* <i
+            className="bi bi-list text-4xl block md:hidden cursor-pointer"
+            onClick={openSidebar}
+          ></i> */}
+
           <div className="flex items-center justify-center border rounded-full h-10 w-10">
             <i class="bi bi-person-fill text-gray-400"></i>
           </div>
         </div>
+        <div className="container flex justify-between items-center ml-2">
+          <div className="flex gap-10 flex-col md:flex-row">
+            <div className="mt-5 md:mt-0">
+              <h3 className="font-bold text-2xl text-primary-500"> MORENT</h3>
+            </div>
+            <div className="block md:hidden relative">
+              <i class="bi bi-search absolute top-3 left-5"></i>
+
+              <div className="flex items-center justify-between">
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
+                  placeholder="Search something hereeee"
+                  className="px-4 py-3  rounded-md border w-full pl-10 pr-10"
+                />
+                <div className="px-2 py-1 ml-5 border rounded-md text-center">
+                  <i class="bi bi-sliders text-3xl "></i>
+                </div>
+              </div>
+            </div>
+            <div className="relative ml-3 hidden md:block">
+              <i class="bi bi-search  absolute top-2 left-4"></i>
+              <input
+                type="text"
+                className="pl-10 h-10 px-4 py-2 rounded-full w-[200px] md:w-[450px] border "
+                placeholder="Search something here "
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
+              />
+              <i class="bi bi-sliders absolute top-2 right-5"></i>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 ">
+            <div className="hidden items-center justify-center border rounded-full h-10 w-10  md:flex">
+              <i className="bi bi-heart-fill text-gray-400"></i>
+            </div>
+            <div className="hidden items-center justify-center border rounded-full h-10 w-10  md:flex">
+              <i class="bi bi-bell-fill text-gray-400"></i>
+            </div>
+            <div className=" items-center justify-center border rounded-full h-10 w-10 hidden md:flex">
+              <i class="bi bi-gear-fill text-gray-400"></i>
+            </div>
+            <div className=" items-center justify-center border hidden md:flex rounded-full h-10 w-10">
+              <i class="bi bi-person-fill text-gray-400"></i>
+            </div>
+          </div>
+        </div>
       </header>
-      <div className="main-content p-6">
+      <div className="main-content md:mt-0 mt-60 p-6">
         <div className="hero flex gap-2">
           <div className="card-1 rounded-xl h-80 md:h-64 w-full sm:w-3/4 md:w-1/2 relative">
             <div>
@@ -313,6 +358,12 @@ const Home = () => {
             ) : (
               <h1 className="text-2xl font-bold">Car Not found</h1>
             )}
+          </div>
+
+          <div className="p-4 flex items-center justify-center">
+            <button className="px-12  py-4 hover:opacity-75 transition-opacity bg-primary-500 text-white rounded-lg " onClick={handleNavigate}>
+              View More
+            </button>
           </div>
         </div>
       </div>

@@ -5,16 +5,23 @@ import Sidebar from "../components/Sidebar";
 import { useState } from "react";
 import Footer from "../components/Footer";
 const CategoryLayout = () => {
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchQuery, setSearchQuery] = useState("");
   const [isopen, setIsOpen] = useState(false);
+  const [favouriteModal, setFavouriteModal] = useState(false);
   const openSidebar = () => {
     setIsOpen(true);
-    console.log('clicked ')
+    console.log("clicked ");
   };
-const CloseSidebar  = () => {
-  setIsOpen(false);
- }
- 
+  const CloseSidebar = () => {
+    setIsOpen(false);
+  };
+  const openFavourite = () => {
+    setFavouriteModal(true);
+  };
+  const closeFavouriteModal = () => {
+    setFavouriteModal(false);
+  };
+
   return (
     <div>
       <header className="w-full p-6 bg-white  fixed z-10 top-0">
@@ -23,14 +30,20 @@ const CloseSidebar  = () => {
             className="bi bi-list text-4xl block md:hidden cursor-pointer"
             onClick={openSidebar}
           ></i>
-          ;
-          <div className="flex items-center justify-center border rounded-full h-10 w-10">
-            <i class="bi bi-person-fill text-gray-400"></i>
+
+          <div>
+            <div className="flex items-center justify-center border rounded-full h-10 w-10">
+              <i class="bi bi-person-fill text-gray-400"></i>
+            </div>
+            <div className="flex items-center justify-center border rounded-full h-10 w-10 mt-2">
+              <i class="bi bi-heart-fill cursor-pointer"
+               onClick={openFavourite}></i>
+            </div>
           </div>
         </div>
         <div className="container flex justify-between items-center ml-2">
           <div className="flex gap-10 flex-col md:flex-row">
-            <div className="mt-5 md:mt-0">
+            <div className="mt-2 md:mt-0">
               <h3 className="font-bold text-2xl text-primary-500"> MORENT</h3>
             </div>
             <div className="block md:hidden relative">
@@ -47,7 +60,7 @@ const CloseSidebar  = () => {
                   className="px-4 py-3  rounded-md border w-full pl-10 pr-10"
                 />
                 <div className="px-2 py-1 ml-5 border rounded-md text-center">
-                <i class="bi bi-sliders text-3xl "></i>
+                  <i class="bi bi-sliders text-3xl "></i>
                 </div>
               </div>
             </div>
@@ -65,7 +78,10 @@ const CloseSidebar  = () => {
           </div>
           <div className="flex items-center gap-3 ">
             <div className="hidden items-center justify-center border rounded-full h-10 w-10  md:flex">
-              <i className="bi bi-heart-fill text-gray-400"></i>
+              <i
+                className="bi bi-heart-fill text-gray-400 cursor-pointer"
+                onClick={openFavourite}
+              ></i>
             </div>
             <div className="hidden items-center justify-center border rounded-full h-10 w-10  md:flex">
               <i class="bi bi-bell-fill text-gray-400"></i>
@@ -80,9 +96,11 @@ const CloseSidebar  = () => {
         </div>
       </header>
       <div className="flex">
-        <Sidebar IsOpen={isopen} onClose={CloseSidebar}/>
+        <Sidebar IsOpen={isopen} onClose={CloseSidebar} />
         <div className="p-4 ml-1 md:ml-[19rem] mt-60 md:mt-20 w-full">
-          <Outlet context={{searchQuery}}/>
+          <Outlet
+            context={{ searchQuery, favouriteModal, closeFavouriteModal }}
+          />
         </div>
       </div>
     </div>

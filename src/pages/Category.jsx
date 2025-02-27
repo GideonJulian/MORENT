@@ -1,26 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import mark from "../assets/images/mark.png";
 import { CarDetails } from "../utils/CarsDetails";
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import RecommendedCar from "../components/RecommendedCar";
+import favouriteData from "../utils/Favourites";
+import PopUp from "../components/PopUp";
+import Favourites from "../components/Favourites";
+// import { getFavourites, toggleFavourite } from "../utils/Favourites";
 
 const Category = () => {
-  const { searchQuery } = useOutletContext();
+  const { getFavourites, toggleFavourite } = favouriteData;
+  const { searchQuery, favouriteModal, closeFavouriteModal } = useOutletContext();
   const [addedtoFavourite, setAddedToFavourite] = useState({});
-  const toggleFavourite = (id) => {
+  const [displayPopUp, setDisplayPopUp] = useState(false);
+  useEffect(()=> {
+    setAddedToFavourite(getFavourites())
+  }, [])
+  const handlAddToFavourite = (id) => {
+    const updateFavourite = toggleFavourite(id)
+    setAddedToFavourite(updateFavourite)
     setAddedToFavourite((prev) => ({
       ...prev,
       [id]: !prev[id],
     }));
+   
+
+    if(updateFavourite[id]){
+      // alert("added to favourite")
+      setDisplayPopUp(true)
+      setTimeout(()=> {
+        setDisplayPopUp(false)
+       
+      }, 6000)
+    }
+
   };
   const filteredCars = CarDetails.filter(
     (car) =>
       car.carName.toLowerCase().includes(searchQuery) ||
       car.category.toLocaleLowerCase().includes(searchQuery)
   );
-
+const closeFavModal = () => {
+  closeFavouriteModal(false)
+}
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
@@ -39,12 +63,15 @@ const Category = () => {
                 <i
                   className={
                     addedtoFavourite[car.id]
-                      ? "bi bi-heart-fill"
+                      ? "bi bi-heart-fill cursor-pointer"
                       : "bi bi-heart"
                   }
                   onClick={(e) => {
                     e.stopPropagation();
-                    toggleFavourite(car.id);
+                    handlAddToFavourite(car.id);
+                 
+                    
+                    
                   }}
                 ></i>
               </div>
@@ -85,6 +112,9 @@ const Category = () => {
           </div>
         )}
       </div>
+      {favouriteModal && <Favourites onclose={closeFavModal}/>}
+
+      {displayPopUp && <PopUp />}
     </div>
   );
 };
