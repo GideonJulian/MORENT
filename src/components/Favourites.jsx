@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { getFavourites } from "../utils/favourites";
+import { getFavourites } from "../utils/Favourites";
 import { CarDetails } from "../utils/CarsDetails";
 
 const Favourites = ({ onclose }) => {
