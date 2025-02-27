@@ -81,8 +81,8 @@ const Category = () => {
           ))
         ) : (
           <div className="col-span-3 flex justify-center w-full">
-          <RecommendedCar />
-        </div>
+            <RecommendedCar />
+          </div>
         )}
       </div>
     </div>
