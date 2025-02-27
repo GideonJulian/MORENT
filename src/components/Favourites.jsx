@@ -27,16 +27,16 @@ const Favourites = ({ onclose }) => {
           {favouriteCars.map((car) => (
             <div>
               <div key={car.id} className="md:p-5 p-5 rounded-lg shadow-lg mb-5 w-auto md:w-auto border">
-                <div className="flex items-center gap-3 justify-between">
+                <div className="flex items-center gap-3 justify-between md:flex-row flex-col">
                   <img
                     src={car.img}
                     alt={car.carName}
                     className="h-20 w-[230px]"
                   />
 
-                  <div>
+                  <div className="md:block flex  items-center justify-center gap-2">
                     <h3 className="font-bold md:text-lg text-sm ">{car.carName}</h3>
-                    <p className="text-gray-500">{car.category}</p>
+                    <p className="text-gray-500 text-lg">{car.category}</p>
                     <h3 className="mt-3 font-bold md:text-lg text-sm">${car.price}/day</h3>
                   </div>
                 </div>
