@@ -17,6 +17,7 @@ const Home = () => {
   const [isLocationDropdownOpen, setIsLocationDropdownOpen] = useState(false);
   const [isDateDropdownOpen, setIsDateDropdownOpen] = useState(false);
   const [isTimeDropdownOpen, setIsTimeDropdownOpen] = useState(false);
+  const [homeSearchQuery, setHomeSearchQuery] = useState("");
   const toggleLocationDropdown = () => {
     setIsLocationDropdownOpen((prev) => !prev);
 
@@ -60,6 +61,11 @@ const Home = () => {
     { time: "04:00 PM", value: "16:00" },
     { time: "05:00 PM", value: "17:00" },
   ];
+  const filteredCars = CarDetails.filter(
+    (item) =>
+      item.carName.toLowerCase().includes(homeSearchQuery) ||
+      item.category.toLowerCase().includes(homeSearchQuery)
+  );
   return (
     <div className="w-full">
       <header className="w-full p-6 bg-white flex justify-between item-center">
@@ -71,7 +77,9 @@ const Home = () => {
             <i class="bi bi-search  absolute top-2 left-4"></i>
             <input
               type="text"
-              className="pl-10 h-10 px-4 py-2 rounded-full w-[200px] md:w-[450px] border "
+              value={homeSearchQuery}
+              onChange={(e) => setHomeSearchQuery(e.target.value.toLowerCase())}
+              className="pl-10 h-10 px-4 py-2 rounded-efull w-[200px] md:w-[450px] border "
               placeholder="Search something here "
             />
             <i class="bi bi-sliders absolute top-2 right-5"></i>
@@ -252,55 +260,59 @@ const Home = () => {
         <div>
           <h3 className="text-gray-400 font-semibold p-4">Popular Cars</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-            {CarDetails.map((car) => (
-              <div className="p-5 bg-white rounded-lg cursor-pointer  ">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-bold text-lg">{car.carName}</h3>
-                    <p className="font-semibold text-gray-400">
-                      {car.category}
-                    </p>
+            {filteredCars.length > 0 ? (
+              filteredCars.map((car) => (
+                <div className="p-5 bg-white rounded-lg cursor-pointer  ">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-bold text-lg">{car.carName}</h3>
+                      <p className="font-semibold text-gray-400">
+                        {car.category}
+                      </p>
+                    </div>
+                    <i
+                      className={`bi bi-heart cursor-pointer ${
+                        addedtoFavourite
+                          ? "bi bi-heart-fill cursor-pointer text-red-600"
+                          : "bi bi-heart cursor-pointer"
+                      }`}
+                      onClick={handleAddToFavourite}
+                    ></i>
                   </div>
-                  <i
-                    className={`bi bi-heart cursor-pointer ${
-                      addedtoFavourite
-                        ? "bi bi-heart-fill cursor-pointer text-red-600"
-                        : "bi bi-heart cursor-pointer"
-                    }`}
-                    onClick={handleAddToFavourite}
-                  ></i>
-                </div>
-                <div className="mt-10 ">
-                  <img src={car.img} alt="" className=" h-20 m-auto" />
-                </div>
-                <div className="flex items-center justify-center gap-2 text-lg mt-7">
-                  <div className="text-gray-400 flex items-center gap-2">
-                    <i class="bi bi-fuel-pump-diesel-fill"></i>
-                    <span>70L</span>
+                  <div className="mt-10 ">
+                    <img src={car.img} alt="" className=" h-20 m-auto" />
                   </div>
-                  <div className="text-gray-400 flex items-center gap-2">
-                    <i class="bi bi-car-front-fill"></i>
+                  <div className="flex items-center justify-center gap-2 text-lg mt-7">
+                    <div className="text-gray-400 flex items-center gap-2">
+                      <i class="bi bi-fuel-pump-diesel-fill"></i>
+                      <span>70L</span>
+                    </div>
+                    <div className="text-gray-400 flex items-center gap-2">
+                      <i class="bi bi-car-front-fill"></i>
 
-                    <span>Manual</span>
+                      <span>Manual</span>
+                    </div>
+                    <div className="text-gray-400 flex items-center gap-2">
+                      <i class="bi bi-people-fill"></i>
+                      <span>{car.people} people </span>
+                    </div>
                   </div>
-                  <div className="text-gray-400 flex items-center gap-2">
-                    <i class="bi bi-people-fill"></i>
-                    <span>{car.people} people </span>
+                  <div className="flex items-center justify-between mt-5">
+                    <div>
+                      <h3 className="font-bold text-lg">
+                        ${car.price}/
+                        <span className="font-normal text-gray-400"> day</span>
+                      </h3>
+                    </div>
+                    <button className="px-4 py-2 hover:opacity-75 transition-opacity bg-primary-500 text-white rounded-lg ">
+                      Rent Now
+                    </button>
                   </div>
                 </div>
-                <div className="flex items-center justify-between mt-5">
-                  <div>
-                    <h3 className="font-bold text-lg">
-                      ${car.price}/
-                      <span className="font-normal text-gray-400"> day</span>
-                    </h3>
-                  </div>
-                  <button className="px-4 py-2 hover:opacity-75 transition-opacity bg-primary-500 text-white rounded-lg ">
-                    Rent Now
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <h1 className="text-2xl font-bold">Car Not found</h1>
+            )}
           </div>
         </div>
       </div>

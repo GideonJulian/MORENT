@@ -4,6 +4,7 @@ import mark from "../assets/images/mark.png";
 import { CarDetails } from "../utils/CarsDetails";
 import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import RecommendedCar from "../components/RecommendedCar";
 
 const Category = () => {
   const { searchQuery } = useOutletContext();
@@ -14,15 +15,16 @@ const Category = () => {
       [id]: !prev[id],
     }));
   };
-  const filteredCars = CarDetails.filter((car) =>
-    car.carName.toLowerCase().includes(searchQuery) ||
-  car.category.toLocaleLowerCase().includes(searchQuery)
+  const filteredCars = CarDetails.filter(
+    (car) =>
+      car.carName.toLowerCase().includes(searchQuery) ||
+      car.category.toLocaleLowerCase().includes(searchQuery)
   );
 
   return (
     <div>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {filteredCars.length  > 0 ? (
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
+        {filteredCars.length > 0 ? (
           filteredCars.map((car) => (
             <div
               className="p-5 bg-white rounded-lg cursor-pointer  "
@@ -78,7 +80,9 @@ const Category = () => {
             </div>
           ))
         ) : (
-          <h1 className="text-center text-2xl font-bold">No Cars Found</h1>
+          <div className="col-span-3 flex justify-center w-full">
+          <RecommendedCar />
+        </div>
         )}
       </div>
     </div>
