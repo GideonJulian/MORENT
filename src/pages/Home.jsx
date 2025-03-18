@@ -83,8 +83,8 @@ const Home = () => {
   }
   return (
     <div className="w-full">
-      <header className="w-full p-6 bg-white md:static fixed st z-10 top-0">
-        <div className="flex justify-end items-center  md:hidden ">
+      <header className="w-full p-3 bg-white md:static fixed  z-10 top-0 left-0 ">
+        <div className="flex justify-end mr-3 items-center  md:hidden ">
           {/* <i
             className="bi bi-list text-4xl block md:hidden cursor-pointer"
             onClick={openSidebar}
@@ -109,11 +109,11 @@ const Home = () => {
                   id=""
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
-                  placeholder="Search something hereeee"
-                  className="px-4 py-3  rounded-md border w-full pl-10 pr-10"
+                  placeholder="Search something here"
+                  className="px-4 py-2  rounded-md border w-full pl-10 pr-10"
                 />
                 <div className="px-2 py-1 ml-5 border rounded-md text-center">
-                  <i class="bi bi-sliders text-3xl "></i>
+                  <i class="bi bi-sliders text-2xl "></i>
                 </div>
               </div>
             </div>
@@ -316,12 +316,8 @@ const Home = () => {
                       </p>
                     </div>
                     <i
-                      className={`bi bi-heart cursor-pointer ${
-                        addedtoFavourite
-                          ? "bi bi-heart-fill cursor-pointer text-red-600"
-                          : "bi bi-heart cursor-pointer"
-                      }`}
-                      onClick={handleAddToFavourite}
+                      className={`bi ${addedtoFavourite ? "bi-heart-fill text-red-600" : "bi-heart"} cursor-pointer`}
+                      onClick={() => handleAddToFavourite(car.id)}
                     ></i>
                   </div>
                   <div className="mt-10 ">

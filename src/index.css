@@ -7,8 +7,10 @@ body{
   font-family: "Plus Jakarta Sans", serif;
   overflow-x: hidden;
   background-color: #F6F7F9;
+  box-sizing: border-box;
 }
 html{ 
+  overflow-x: hidden;   
 }
 .card-1 {
 
